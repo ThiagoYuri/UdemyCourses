@@ -44,12 +44,12 @@ namespace Chess_Game.Chess
             board.putPiece(new King(board, ColorPiece.White), new PositionChess('d', 1).toPosition());
 
 
-            board.putPiece(new Tower(board, ColorPiece.White), new PositionChess('c', 7).toPosition());
-            board.putPiece(new Tower(board, ColorPiece.White), new PositionChess('c', 8).toPosition());
-            board.putPiece(new Tower(board, ColorPiece.White), new PositionChess('d', 7).toPosition());
-            board.putPiece(new Tower(board, ColorPiece.White), new PositionChess('e', 7).toPosition());
-            board.putPiece(new Tower(board, ColorPiece.White), new PositionChess('e', 8).toPosition());
-            board.putPiece(new King(board, ColorPiece.White), new PositionChess('d', 8).toPosition());
+            board.putPiece(new Tower(board, ColorPiece.Yellow), new PositionChess('c', 7).toPosition());
+            board.putPiece(new Tower(board, ColorPiece.Yellow), new PositionChess('c', 8).toPosition());
+            board.putPiece(new Tower(board, ColorPiece.Yellow), new PositionChess('d', 7).toPosition());
+            board.putPiece(new Tower(board, ColorPiece.Yellow), new PositionChess('e', 7).toPosition());
+            board.putPiece(new Tower(board, ColorPiece.Yellow), new PositionChess('e', 8).toPosition());
+            board.putPiece(new King(board, ColorPiece.Yellow), new PositionChess('d', 8).toPosition());
 
         }
     }

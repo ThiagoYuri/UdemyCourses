@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace board
 {
-    class Piece
+    abstract class Piece
     {
         public Position position { get; set; }
         public ColorPiece color { get; protected set; }
@@ -20,6 +20,8 @@ namespace board
             this.color = color;
             this.qteMovimentos = 0;
         }
+
+        public abstract bool[,] movePosible();        
 
         public void movimentValueIncrement()
         {
