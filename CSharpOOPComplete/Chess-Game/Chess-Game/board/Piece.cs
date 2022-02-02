@@ -44,7 +44,10 @@ namespace board
             qteMovimentos++;
         }
 
-
+        public void movimentValueDecrement()
+        {
+            qteMovimentos--;
+        }
         public bool canMoveTo(Position pos)
         {
             return movePosible()[pos.line, pos.column];

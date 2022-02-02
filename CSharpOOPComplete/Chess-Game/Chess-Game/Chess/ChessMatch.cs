@@ -1,5 +1,6 @@
 ﻿using board;
 using chess;
+using System;
 using System.Collections.Generic;
 
 namespace Chess_Game.Chess
@@ -12,11 +13,13 @@ namespace Chess_Game.Chess
         public bool finalized { get; private set; }
         private HashSet<Piece> pieces;
         private HashSet<Piece> captured;
+        public bool check { get; private set; }
 
         public ChessMatch()
         {
             board = new Board(8, 8);
             shift = 1;
+            check = false;
             playerNow = ColorPiece.White;
             finalized = false;
             pieces = new HashSet<Piece>();
@@ -24,7 +27,7 @@ namespace Chess_Game.Chess
             putPieces();
         }
 
-        public void executeMoviment(Position pStart, Position pEnd)
+        public Piece executeMoviment(Position pStart, Position pEnd)
         {
             Piece p = board.removePiece(pStart);
             p.movimentValueIncrement();
@@ -34,6 +37,7 @@ namespace Chess_Game.Chess
             {
                 captured.Add(pCaptured);
             }
+            return pCaptured;
         }
 
         public HashSet<Piece> piecesCaptured(ColorPiece cor)
@@ -62,13 +66,81 @@ namespace Chess_Game.Chess
             return aux;
         }
 
+        private ColorPiece adversary(ColorPiece cor )
+        {
+            if(cor == ColorPiece.White)
+            {
+                return ColorPiece.Black;
+            }
+            return ColorPiece.White;
+        }
+
+        private Piece kink(ColorPiece cor)
+        {
+            foreach(var x in pieces)
+            {
+                if(x is King)
+                {
+                    if (cor == x.color)
+                    {
+                        return x;
+                    }
+                }
+            }
+            return null;
+        }
+       
+        public bool stateCheck(ColorPiece cor)
+        {
+            Piece R = kink(cor);
+            if(R == null)
+            {
+                throw new BoardException($"Não tem rei da cor {cor} no tabuleiro!");
+            }
+            foreach(var x in piecesInGame(adversary(cor)))
+            {
+                bool[,] mat = x.movePosible();
+                if(mat[R.position.line,R.position.column])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
 
         public void makeMove(Position pStart, Position pEnd)
         {
-            executeMoviment(pStart, pEnd);
+           
+            Piece pieceCaptured = executeMoviment(pStart, pEnd);
+            if (stateCheck(playerNow))
+            {
+                undoMove(pStart, pEnd, pieceCaptured);
+                throw new BoardException("Você não pode se colocar em xeque!");
+            }
+
+            if (stateCheck(adversary(playerNow)) == true)
+            {
+                check = true;
+            }
+            else
+            {
+                check = false;
+            }
             shift++;
             ChangeJogador();
+        }
+
+        private void undoMove(Position pStart, Position pEnd, Piece pieceCaptured)
+        {
+            Piece p = board.removePiece(pEnd);
+            p.movimentValueDecrement();
+            if(pieceCaptured != null)
+            {
+                board.putPiece(pieceCaptured, pEnd);
+                captured.Remove(pieceCaptured);
+            }
+            board.putPiece(p, pStart);
         }
 
         public void validPositionOrigin(Position pos)
