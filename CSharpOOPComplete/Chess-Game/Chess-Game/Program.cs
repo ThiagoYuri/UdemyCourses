@@ -17,21 +17,16 @@ namespace Chess_Game
 
                 while (!chessMatch.finalized)
                 {
-
                     try
                     {
                         Console.Clear();
-                        Screen.PrintOutBoard(chessMatch.board);
-                        Console.WriteLine();
-                        Console.WriteLine("Turno: " + chessMatch.shift);
-                        Console.WriteLine("Aguardando jogada: " + chessMatch.playerNow);
-                        Console.WriteLine();
+                        Screen.printGame(chessMatch);
                         Console.WriteLine("Origin: ");
                         Position origin = Screen.readPositionChess().toPosition();
                         chessMatch.validPositionOrigin(origin);
                         bool[,] positionPosible = chessMatch.board.getPiece(origin).movePosible();
                         Console.Clear();
-                        Screen.PrintOutBoard(chessMatch.board, positionPosible);
+                        Screen.printOutBoard(chessMatch.board, positionPosible);
                         Console.WriteLine("Destiny:");
                         Position destiny = Screen.readPositionChess().toPosition();
                         chessMatch.validPositionDestiny(origin,destiny);

@@ -5,13 +5,47 @@ using System.Text;
 using System.Threading.Tasks;
 using board;
 using chess;
+using Chess_Game.Chess;
 
 namespace Chess_Game
 {
     class Screen
     {
         //Print Board
-        public static void PrintOutBoard(Board board)
+        public static void printGame(ChessMatch chessMatch) {
+            printOutBoard(chessMatch.board);
+            Console.WriteLine();
+            printPiecesCaptured(chessMatch);
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + chessMatch.shift);
+            Console.WriteLine("Aguardando jogada: " + chessMatch.playerNow);
+            Console.WriteLine();
+        }
+
+        private static void printPiecesCaptured(ChessMatch chessMatch)
+        {
+            Console.WriteLine("Peças capturadas:");
+            Console.Write("Brancas: ");
+            printGroup(chessMatch.piecesCaptured(ColorPiece.White));
+            Console.WriteLine();
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Pretas: ");
+            printGroup(chessMatch.piecesCaptured(ColorPiece.Black));
+            Console.ForegroundColor = aux;
+        }
+
+        private static void printGroup(HashSet<Piece> group)
+        {
+            Console.Write("[");
+            foreach(var x in group)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write("]");
+        }
+
+        public static void printOutBoard(Board board)
         {
             for (int i = 0; i < board.lines; i++)
             {
@@ -25,7 +59,7 @@ namespace Chess_Game
             Console.WriteLine("   a b c d e f g h ");
         }
 
-        public static void PrintOutBoard(Board board, bool[,] positionPosible)
+        public static void printOutBoard(Board board, bool[,] positionPosible)
         {
             ConsoleColor backgroundDefault = Console.BackgroundColor;
             ConsoleColor backgroundChanged = ConsoleColor.DarkGray;
