@@ -18,12 +18,20 @@ namespace Chess_Game
             printPiecesCaptured(chessMatch);
             Console.WriteLine();
             Console.WriteLine("Turno: " + chessMatch.shift);
-            Console.WriteLine("Aguardando jogada: " + chessMatch.playerNow);
-            if (chessMatch.check)
-            {
-                Console.WriteLine("Xeque");
+            if (!chessMatch.finalized) { 
+                Console.WriteLine("Aguardando jogada: " + chessMatch.playerNow);
+                if (chessMatch.check)
+                {
+                    Console.WriteLine("Xeque");
+                }
+                Console.WriteLine();
             }
-            Console.WriteLine();
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Xeque-Mate");
+                Console.WriteLine("Vencedor: " + chessMatch.playerNow);
+            }
         }
 
         private static void printPiecesCaptured(ChessMatch chessMatch)

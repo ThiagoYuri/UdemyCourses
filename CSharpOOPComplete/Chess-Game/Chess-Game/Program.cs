@@ -39,7 +39,8 @@ namespace Chess_Game
                         Console.ReadKey();
                     }
                 }
-
+                Console.Clear();
+                Screen.printGame(chessMatch);
 
             }
             catch (BoardException m)

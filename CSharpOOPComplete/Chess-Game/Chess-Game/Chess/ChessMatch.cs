@@ -75,9 +75,9 @@ namespace Chess_Game.Chess
             return ColorPiece.White;
         }
 
-        private Piece kink(ColorPiece cor)
+        private Piece king(ColorPiece cor)
         {
-            foreach(var x in pieces)
+            foreach(var x in piecesInGame(cor))
             {
                 if(x is King)
                 {
@@ -92,7 +92,7 @@ namespace Chess_Game.Chess
        
         public bool stateCheck(ColorPiece cor)
         {
-            Piece R = kink(cor);
+            Piece R = king(cor);
             if(R == null)
             {
                 throw new BoardException($"Não tem rei da cor {cor} no tabuleiro!");
@@ -108,6 +108,43 @@ namespace Chess_Game.Chess
             return false;
         }
 
+        public bool checkMate(ColorPiece cor)
+        {
+            try
+            {
+                if (!stateCheck(cor))
+                {
+                    return false;
+                }
+                foreach (Piece x in piecesInGame(cor))
+                {
+                    bool[,] mat = x.movePosible();
+                    for (int i = 0; i < board.lines; i++)
+                    {
+                        for (int j = 0; j < board.columns; j++)
+                        {
+                            if (mat[i, j])
+                            {
+                                Position origin = x.position;
+                                Position destino = new Position(i, j);
+                                Piece pieceCaptured = executeMoviment(origin, destino);
+                                bool testCheck = stateCheck(cor);                                
+                                undoMove(origin, destino, pieceCaptured);
+                                if (!testCheck)
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         public void makeMove(Position pStart, Position pEnd)
         {
@@ -119,7 +156,7 @@ namespace Chess_Game.Chess
                 throw new BoardException("Você não pode se colocar em xeque!");
             }
 
-            if (stateCheck(adversary(playerNow)) == true)
+            if (stateCheck(adversary(playerNow)))
             {
                 check = true;
             }
@@ -127,12 +164,22 @@ namespace Chess_Game.Chess
             {
                 check = false;
             }
-            shift++;
-            ChangeJogador();
+
+            if (checkMate(adversary(playerNow))) //
+            {
+                finalized = true;
+            }
+            else
+            {
+                shift++;
+                ChangeJogador();
+            }
+
         }
 
         private void undoMove(Position pStart, Position pEnd, Piece pieceCaptured)
         {
+            
             Piece p = board.removePiece(pEnd);
             p.movimentValueDecrement();
             if(pieceCaptured != null)
