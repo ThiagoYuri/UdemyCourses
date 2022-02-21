@@ -246,14 +246,14 @@ namespace Chess_Game.Chess
             putNewPieces('g', 1, new Horse(board, ColorPiece.White));
             putNewPieces('b', 1, new Horse(board, ColorPiece.White));
             //Peão
-            /*putNewPieces('a', 2, new Pawn(board, ColorPiece.White));
+            putNewPieces('a', 2, new Pawn(board, ColorPiece.White));
             putNewPieces('b', 2, new Pawn(board, ColorPiece.White));
             putNewPieces('c', 2, new Pawn(board, ColorPiece.White));
             putNewPieces('d', 2, new Pawn(board, ColorPiece.White));
             putNewPieces('e', 2, new Pawn(board, ColorPiece.White));
             putNewPieces('f', 2, new Pawn(board, ColorPiece.White));
             putNewPieces('g', 2, new Pawn(board, ColorPiece.White));
-            putNewPieces('h', 2, new Pawn(board, ColorPiece.White));*/
+            putNewPieces('h', 2, new Pawn(board, ColorPiece.White));
 
             //Black
             putNewPieces('a', 8, new Tower(board, ColorPiece.Black));
@@ -265,14 +265,14 @@ namespace Chess_Game.Chess
             putNewPieces('g', 8, new Horse(board, ColorPiece.Black));
             putNewPieces('b', 8, new Horse(board, ColorPiece.Black));
             //Peão
-           /* putNewPieces('a', 7, new Pawn(board, ColorPiece.Black));
+            putNewPieces('a', 7, new Pawn(board, ColorPiece.Black));
             putNewPieces('b', 7, new Pawn(board, ColorPiece.Black));
             putNewPieces('c', 7, new Pawn(board, ColorPiece.Black));
             putNewPieces('d', 7, new Pawn(board, ColorPiece.Black));
             putNewPieces('e', 7, new Pawn(board, ColorPiece.Black));
             putNewPieces('f', 7, new Pawn(board, ColorPiece.Black));
             putNewPieces('g', 7, new Pawn(board, ColorPiece.Black));
-            putNewPieces('h', 7, new Pawn(board, ColorPiece.Black));*/
+            putNewPieces('h', 7, new Pawn(board, ColorPiece.Black));
         }
     }
 }
