@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace Chess_Game.Chess.Pieces
 {
-    class Tower : Piece
+    class Bishop : Piece
     {
-        public Tower(Board board, ColorPiece color) : base(board, color)
+        public Bishop(Board board, ColorPiece color) : base(board, color)
         {
-
+        }
+        public override string ToString()
+        {
+            return "B";
         }
         private bool canMove(Position pos)
         {
@@ -22,22 +25,10 @@ namespace Chess_Game.Chess.Pieces
         public override bool[,] movePosible()
         {
             bool[,] mat = new bool[board.lines, board.columns];
-            Position pos = new Position(0,0);
+            Position pos = new Position(0, 0);
 
-            //up
-            pos.changeValues(position.line - 1, position.column);
-            while(board.positionValid(pos) && canMove(pos))
-            {
-                mat[pos.line, pos.column] = true;
-                if(board.getPiece(pos) != null && board.getPiece(pos).color != color)
-                {
-                    break;
-                }
-                pos.line = pos.line - 1;
-
-            }
-            //down
-            pos.changeValues(position.line + 1, position.column);
+            //no
+            pos.changeValues(position.line - 1, position.column -1);
             while (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
@@ -45,10 +36,10 @@ namespace Chess_Game.Chess.Pieces
                 {
                     break;
                 }
-                pos.line = pos.line + 1;
+                pos.changeValues(position.line - 1, position.column - 1);
             }
-            //right
-            pos.changeValues(position.line , position.column+1);
+            //ne
+            pos.changeValues(position.line - 1, position.column+1);
             while (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
@@ -56,11 +47,22 @@ namespace Chess_Game.Chess.Pieces
                 {
                     break;
                 }
-                pos.column = pos.column + 1;
+                pos.changeValues(position.line - 1, position.column + 1);
+            }
+            //so
+            pos.changeValues(position.line+1, position.column -1);
+            while (board.positionValid(pos) && canMove(pos))
+            {
+                mat[pos.line, pos.column] = true;
+                if (board.getPiece(pos) != null && board.getPiece(pos).color != color)
+                {
+                    break;
+                }
+                pos.changeValues(position.line + 1, position.column - 1);
             }
 
-            //left
-            pos.changeValues(position.line, position.column - 1);
+            //se
+            pos.changeValues(position.line+1, position.column + 1);
             while (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
@@ -68,14 +70,9 @@ namespace Chess_Game.Chess.Pieces
                 {
                     break;
                 }
-                pos.column = pos.column - 1;
+                pos.changeValues(position.line + 1, position.column + 1);
             }
             return mat;
-        }
-
-        public override string ToString()
-        {
-            return "T";
         }
     }
 }

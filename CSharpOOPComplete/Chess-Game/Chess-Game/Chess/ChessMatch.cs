@@ -1,5 +1,6 @@
 ﻿using board;
 using chess;
+using Chess_Game.Chess.Pieces;
 using System;
 using System.Collections.Generic;
 
@@ -235,20 +236,43 @@ namespace Chess_Game.Chess
 
         public void putPieces()
         {
-            putNewPieces('c', 1, new Tower(board, ColorPiece.White));
-            putNewPieces('c', 2, new Tower(board, ColorPiece.White));
-            putNewPieces('d', 2, new Tower(board, ColorPiece.White));
-            putNewPieces('e', 2, new Tower(board, ColorPiece.White));
-            putNewPieces('e', 1, new Tower(board, ColorPiece.White));
+            //White
+            putNewPieces('a', 1, new Tower(board, ColorPiece.White));
+            putNewPieces('h', 1, new Tower(board, ColorPiece.White));
             putNewPieces('d', 1, new King(board, ColorPiece.White));
+            putNewPieces('e', 1, new Dame(board, ColorPiece.White));
+            putNewPieces('f', 1, new Bishop(board, ColorPiece.White));
+            putNewPieces('c', 1, new Bishop(board, ColorPiece.White));
+            putNewPieces('g', 1, new Horse(board, ColorPiece.White));
+            putNewPieces('b', 1, new Horse(board, ColorPiece.White));
+            //Peão
+            putNewPieces('a', 2, new Pawn(board, ColorPiece.White));
+            putNewPieces('b', 2, new Pawn(board, ColorPiece.White));
+            putNewPieces('c', 2, new Pawn(board, ColorPiece.White));
+            putNewPieces('d', 2, new Pawn(board, ColorPiece.White));
+            putNewPieces('e', 2, new Pawn(board, ColorPiece.White));
+            putNewPieces('f', 2, new Pawn(board, ColorPiece.White));
+            putNewPieces('g', 2, new Pawn(board, ColorPiece.White));
+            putNewPieces('h', 2, new Pawn(board, ColorPiece.White));
 
-
-            putNewPieces('c', 7, new Tower(board, ColorPiece.Black));
-            putNewPieces('c', 8, new Tower(board, ColorPiece.Black));
-            putNewPieces('d', 7, new Tower(board, ColorPiece.Black));
-            putNewPieces('e', 7, new Tower(board, ColorPiece.Black));
-            putNewPieces('e', 8, new Tower(board, ColorPiece.Black));
-            putNewPieces('d', 8, new King(board, ColorPiece.Black));           
+            //Black
+            putNewPieces('a', 8, new Tower(board, ColorPiece.Black));
+            putNewPieces('h', 8, new Tower(board, ColorPiece.Black));
+            putNewPieces('d', 8, new King(board, ColorPiece.Black));
+            putNewPieces('e', 8, new Dame(board, ColorPiece.Black));
+            putNewPieces('f', 8, new Bishop(board, ColorPiece.Black));
+            putNewPieces('c', 8, new Bishop(board, ColorPiece.Black));
+            putNewPieces('g', 8, new Horse(board, ColorPiece.Black));
+            putNewPieces('b', 8, new Horse(board, ColorPiece.Black));
+            //Peão
+            putNewPieces('a', 7, new Pawn(board, ColorPiece.Black));
+            putNewPieces('b', 7, new Pawn(board, ColorPiece.Black));
+            putNewPieces('c', 7, new Pawn(board, ColorPiece.Black));
+            putNewPieces('d', 7, new Pawn(board, ColorPiece.Black));
+            putNewPieces('e', 7, new Pawn(board, ColorPiece.Black));
+            putNewPieces('f', 7, new Pawn(board, ColorPiece.Black));
+            putNewPieces('g', 7, new Pawn(board, ColorPiece.Black));
+            putNewPieces('h', 7, new Pawn(board, ColorPiece.Black));
         }
     }
 }
