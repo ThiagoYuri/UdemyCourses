@@ -33,20 +33,39 @@ namespace Chess_Game.Chess
             Piece p = board.removePiece(pStart);
             p.movimentValueIncrement();
             Piece pCaptured = board.removePiece(pEnd);
-            board.putPiece(p,pEnd);
-            if(pCaptured != null)
+            board.putPiece(p, pEnd);
+            if (pCaptured != null)
             {
                 captured.Add(pCaptured);
             }
+            //# special move roque small
+            if (p is King && pEnd.column == pStart.column + 2)
+            {
+                Position origemT = new Position(pStart.line, pStart.column + 3);
+                Position destiny = new Position(pStart.line, pStart.column + 1);
+                Piece T = board.removePiece(origemT);
+                T.movimentValueIncrement();
+                board.putPiece(T, destiny);
+            }
+            //# special move roque big
+            if (p is King && pEnd.column == pStart.column - 2)
+            {
+                Position origemT = new Position(pStart.line, pStart.column - 4);
+                Position destiny = new Position(pStart.line, pStart.column - 1);
+                Piece T = board.removePiece(origemT);
+                T.movimentValueIncrement();
+                board.putPiece(T, destiny);
+            }
+
             return pCaptured;
         }
 
         public HashSet<Piece> piecesCaptured(ColorPiece cor)
         {
             HashSet<Piece> aux = new HashSet<Piece>();
-            foreach(var p in captured)
+            foreach (var p in captured)
             {
-                if(cor == p.color)
+                if (cor == p.color)
                 {
                     aux.Add(p);
                 }
@@ -67,9 +86,9 @@ namespace Chess_Game.Chess
             return aux;
         }
 
-        private ColorPiece adversary(ColorPiece cor )
+        private ColorPiece adversary(ColorPiece cor)
         {
-            if(cor == ColorPiece.White)
+            if (cor == ColorPiece.White)
             {
                 return ColorPiece.Black;
             }
@@ -78,9 +97,9 @@ namespace Chess_Game.Chess
 
         private Piece king(ColorPiece cor)
         {
-            foreach(var x in piecesInGame(cor))
+            foreach (var x in piecesInGame(cor))
             {
-                if(x is King)
+                if (x is King)
                 {
                     if (cor == x.color)
                     {
@@ -90,18 +109,18 @@ namespace Chess_Game.Chess
             }
             return null;
         }
-       
+
         public bool stateCheck(ColorPiece cor)
         {
             Piece R = king(cor);
-            if(R == null)
+            if (R == null)
             {
                 throw new BoardException($"Não tem rei da cor {cor} no tabuleiro!");
             }
-            foreach(var x in piecesInGame(adversary(cor)))
+            foreach (var x in piecesInGame(adversary(cor)))
             {
                 bool[,] mat = x.movePosible();
-                if(mat[R.position.line,R.position.column])
+                if (mat[R.position.line, R.position.column])
                 {
                     return true;
                 }
@@ -129,7 +148,7 @@ namespace Chess_Game.Chess
                                 Position origin = x.position;
                                 Position destino = new Position(i, j);
                                 Piece pieceCaptured = executeMoviment(origin, destino);
-                                bool testCheck = stateCheck(cor);                                
+                                bool testCheck = stateCheck(cor);
                                 undoMove(origin, destino, pieceCaptured);
                                 if (!testCheck)
                                 {
@@ -149,7 +168,7 @@ namespace Chess_Game.Chess
 
         public void makeMove(Position pStart, Position pEnd)
         {
-           
+
             Piece pieceCaptured = executeMoviment(pStart, pEnd);
             if (stateCheck(playerNow))
             {
@@ -180,23 +199,43 @@ namespace Chess_Game.Chess
 
         private void undoMove(Position pStart, Position pEnd, Piece pieceCaptured)
         {
-            
+
             Piece p = board.removePiece(pEnd);
             p.movimentValueDecrement();
-            if(pieceCaptured != null)
+            if (pieceCaptured != null)
             {
                 board.putPiece(pieceCaptured, pEnd);
                 captured.Remove(pieceCaptured);
             }
             board.putPiece(p, pStart);
+
+            //# special move roque small
+            if (p is King && pEnd.column == pStart.column + 2)
+            {
+                Position origemT = new Position(pStart.line, pStart.column + 3);
+                Position destiny = new Position(pStart.line, pStart.column + 1);
+                Piece T = board.removePiece(destiny);
+                T.movimentValueDecrement();
+                board.putPiece(T, origemT);
+            }
+            //# special move roque small
+            if (p is King && pEnd.column == pStart.column - 2)
+            {
+                Position origemT = new Position(pStart.line, pStart.column - 4);
+                Position destiny = new Position(pStart.line, pStart.column - 1);
+                Piece T = board.removePiece(destiny);
+                T.movimentValueDecrement();
+                board.putPiece(T, origemT);
+            }
         }
 
         public void validPositionOrigin(Position pos)
         {
-            if(board.getPiece(pos) == null){
+            if (board.getPiece(pos) == null)
+            {
                 throw new BoardException("Não existe peça na posição de origem escolhida!");
             }
-            if(playerNow != board.getPiece(pos).color)
+            if (playerNow != board.getPiece(pos).color)
             {
                 throw new BoardException("A peça de origem escolhida não é sua!");
             }
@@ -207,7 +246,7 @@ namespace Chess_Game.Chess
 
         }
 
-        public void validPositionDestiny(Position origin,Position destiny)
+        public void validPositionDestiny(Position origin, Position destiny)
         {
             if (!board.getPiece(origin).movePosibles(destiny))
             {
@@ -218,7 +257,7 @@ namespace Chess_Game.Chess
 
         private void ChangeJogador()
         {
-            if(playerNow == ColorPiece.White)
+            if (playerNow == ColorPiece.White)
             {
                 playerNow = ColorPiece.Black;
             }
@@ -227,8 +266,8 @@ namespace Chess_Game.Chess
                 playerNow = ColorPiece.White;
             }
         }
-        
-        public void putNewPieces(char column,int line, Piece piece)
+
+        public void putNewPieces(char column, int line, Piece piece)
         {
             board.putPiece(piece, new PositionChess(column, line).toPosition());
             pieces.Add(piece);
@@ -239,8 +278,8 @@ namespace Chess_Game.Chess
             //White
             putNewPieces('a', 1, new Tower(board, ColorPiece.White));
             putNewPieces('h', 1, new Tower(board, ColorPiece.White));
-            putNewPieces('d', 1, new King(board, ColorPiece.White));
-            putNewPieces('e', 1, new Dame(board, ColorPiece.White));
+            putNewPieces('e', 1, new King(board, ColorPiece.White, this));
+            putNewPieces('d', 1, new Dame(board, ColorPiece.White));
             putNewPieces('f', 1, new Bishop(board, ColorPiece.White));
             putNewPieces('c', 1, new Bishop(board, ColorPiece.White));
             putNewPieces('g', 1, new Horse(board, ColorPiece.White));
@@ -258,8 +297,8 @@ namespace Chess_Game.Chess
             //Black
             putNewPieces('a', 8, new Tower(board, ColorPiece.Black));
             putNewPieces('h', 8, new Tower(board, ColorPiece.Black));
-            putNewPieces('d', 8, new King(board, ColorPiece.Black));
-            putNewPieces('e', 8, new Dame(board, ColorPiece.Black));
+            putNewPieces('e', 8, new King(board, ColorPiece.Black, this));
+            putNewPieces('d', 8, new Dame(board, ColorPiece.Black));
             putNewPieces('f', 8, new Bishop(board, ColorPiece.Black));
             putNewPieces('c', 8, new Bishop(board, ColorPiece.Black));
             putNewPieces('g', 8, new Horse(board, ColorPiece.Black));
