@@ -21,7 +21,11 @@ namespace Chess_Game.Chess.Pieces
         public bool canMove(Position pos)
         {
             Piece p = board.getPiece(pos);
-            return p == null || p.color != this.color;
+            if(p != null)
+            {
+                return p.color != this.color;
+            }
+            return false;
         }
         private bool free(Position pos)
         {
@@ -50,6 +54,29 @@ namespace Chess_Game.Chess.Pieces
                     mat[pos.line, pos.column] = true;
                 }
                 pos.changeValues(position.line - 1, position.column+1);
+                if (board.positionValid(pos) && canMove(pos))
+                {
+                    mat[pos.line, pos.column] = true;
+                }
+            }
+            else
+            {
+                pos.changeValues(position.line +1, position.column);
+                if (board.positionValid(pos) && free(pos))
+                {
+                    mat[pos.line, pos.column] = true;
+                }
+                pos.changeValues(position.line + 2, position.column);
+                if (board.positionValid(pos) && free(pos) && qteMovimentos == 0)
+                {
+                    mat[pos.line, pos.column] = true;
+                }
+                pos.changeValues(position.line + 1, position.column - 1);
+                if (board.positionValid(pos) && canMove(pos))
+                {
+                    mat[pos.line, pos.column] = true;
+                }
+                pos.changeValues(position.line + 1, position.column + 1);
                 if (board.positionValid(pos) && canMove(pos))
                 {
                     mat[pos.line, pos.column] = true;

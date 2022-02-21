@@ -36,7 +36,8 @@ namespace Chess_Game.Chess.Pieces
                 {
                     break;
                 }
-                pos.changeValues(position.line - 1, position.column - 1);
+                pos.line = pos.line - 1;
+                pos.column = pos.column - 1;
             }
             //ne
             pos.changeValues(position.line - 1, position.column+1);
@@ -47,7 +48,8 @@ namespace Chess_Game.Chess.Pieces
                 {
                     break;
                 }
-                pos.changeValues(position.line - 1, position.column + 1);
+                pos.line = pos.line - 1;
+                pos.column = pos.column +1;
             }
             //so
             pos.changeValues(position.line+1, position.column -1);
@@ -58,7 +60,8 @@ namespace Chess_Game.Chess.Pieces
                 {
                     break;
                 }
-                pos.changeValues(position.line + 1, position.column - 1);
+                pos.line = pos.line + 1;
+                pos.column = pos.column - 1;
             }
 
             //se
@@ -70,7 +73,8 @@ namespace Chess_Game.Chess.Pieces
                 {
                     break;
                 }
-                pos.changeValues(position.line + 1, position.column + 1);
+                pos.line = pos.line + 1;
+                pos.column = pos.column +1;
             }
             return mat;
         }

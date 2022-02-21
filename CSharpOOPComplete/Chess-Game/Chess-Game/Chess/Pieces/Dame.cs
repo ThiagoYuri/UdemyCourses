@@ -25,6 +25,57 @@ namespace Chess_Game.Chess.Pieces
         {
             bool[,] mat = new bool[board.lines, board.columns];
             Position pos = new Position(0, 0);
+
+            //bispo
+            //no
+            pos.changeValues(position.line - 1, position.column - 1);
+            while (board.positionValid(pos) && canMove(pos))
+            {
+                mat[pos.line, pos.column] = true;
+                if (board.getPiece(pos) != null && board.getPiece(pos).color != color)
+                {
+                    break;
+                }
+                pos.line = pos.line - 1;
+                pos.column = pos.column - 1;
+            }
+            //ne
+            pos.changeValues(position.line - 1, position.column + 1);
+            while (board.positionValid(pos) && canMove(pos))
+            {
+                mat[pos.line, pos.column] = true;
+                if (board.getPiece(pos) != null && board.getPiece(pos).color != color)
+                {
+                    break;
+                }
+                pos.line = pos.line - 1;
+                pos.column = pos.column + 1;
+            }
+            //so
+            pos.changeValues(position.line + 1, position.column - 1);
+            while (board.positionValid(pos) && canMove(pos))
+            {
+                mat[pos.line, pos.column] = true;
+                if (board.getPiece(pos) != null && board.getPiece(pos).color != color)
+                {
+                    break;
+                }
+                pos.line = pos.line + 1;
+                pos.column = pos.column - 1;
+            }
+
+            //se
+            pos.changeValues(position.line + 1, position.column + 1);
+            while (board.positionValid(pos) && canMove(pos))
+            {
+                mat[pos.line, pos.column] = true;
+                if (board.getPiece(pos) != null && board.getPiece(pos).color != color)
+                {
+                    break;
+                }
+                pos.line = pos.line + 1;
+                pos.column = pos.column + 1;
+            }
             //Tower
             //up
             pos.changeValues(position.line - 1, position.column);
@@ -71,55 +122,6 @@ namespace Chess_Game.Chess.Pieces
                     break;
                 }
                 pos.column = pos.column - 1;
-            }
-
-
-
-            //Bishop
-            //no
-            pos.changeValues(position.line - 1, position.column - 1);
-            while (board.positionValid(pos) && canMove(pos))
-            {
-                mat[pos.line, pos.column] = true;
-                if (board.getPiece(pos) != null && board.getPiece(pos).color != color)
-                {
-                    break;
-                }
-                pos.changeValues(position.line - 1, position.column - 1);
-            }
-            //ne
-            pos.changeValues(position.line - 1, position.column + 1);
-            while (board.positionValid(pos) && canMove(pos))
-            {
-                mat[pos.line, pos.column] = true;
-                if (board.getPiece(pos) != null && board.getPiece(pos).color != color)
-                {
-                    break;
-                }
-                pos.changeValues(position.line - 1, position.column + 1);
-            }
-            //so
-            pos.changeValues(position.line + 1, position.column - 1);
-            while (board.positionValid(pos) && canMove(pos))
-            {
-                mat[pos.line, pos.column] = true;
-                if (board.getPiece(pos) != null && board.getPiece(pos).color != color)
-                {
-                    break;
-                }
-                pos.changeValues(position.line + 1, position.column - 1);
-            }
-
-            //se
-            pos.changeValues(position.line + 1, position.column + 1);
-            while (board.positionValid(pos) && canMove(pos))
-            {
-                mat[pos.line, pos.column] = true;
-                if (board.getPiece(pos) != null && board.getPiece(pos).color != color)
-                {
-                    break;
-                }
-                pos.changeValues(position.line + 1, position.column + 1);
             }
             return mat;
         }

@@ -26,60 +26,55 @@ namespace Chess_Game.Chess.Pieces
             bool[,] mat = new bool[board.lines, board.columns];
 
             Position pos = new Position(0, 0);
-            //Up
+           
             pos.changeValues(position.line - 1, position.column-2);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            //northeast
+            
             pos.changeValues(position.line - 1, position.column + 2);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            //right
-            pos.changeValues(position.line+1, position.column - 1);
+            
+            pos.changeValues(position.line+1, position.column - 2);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            //southeast
-            pos.changeValues(position.line + 1, position.column + 1);
+            
+            pos.changeValues(position.line + 1, position.column +2);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            //down
-            pos.changeValues(position.line + 1, position.column);
+
+            pos.changeValues(position.line - 2, position.column - 1);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            //down
-            pos.changeValues(position.line + 1, position.column);
+
+            pos.changeValues(position.line - 2, position.column + 1);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            //southwest
-            pos.changeValues(position.line + 1, position.column - 1);
+
+            pos.changeValues(position.line + 2, position.column -1);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            //left
-            pos.changeValues(position.line, position.column - 1);
+
+            pos.changeValues(position.line + 2, position.column + 1);
             if (board.positionValid(pos) && canMove(pos))
             {
                 mat[pos.line, pos.column] = true;
             }
-            //northwest
-            pos.changeValues(position.line - 1, position.column - 1);
-            if (board.positionValid(pos) && canMove(pos))
-            {
-                mat[pos.line, pos.column] = true;
-            }
+
             return mat;
 
         }

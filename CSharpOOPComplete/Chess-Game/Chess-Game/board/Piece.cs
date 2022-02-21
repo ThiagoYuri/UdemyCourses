@@ -23,8 +23,9 @@ namespace board
 
         public bool existsMovePosible()
         {
+            
             bool[,] mat = movePosible();
-            for(int i = 0; i< board.lines; i++)
+            for (int i = 0; i< board.lines; i++)
             {
                 for (int j = 0; j < board.columns; j++)
                 {
