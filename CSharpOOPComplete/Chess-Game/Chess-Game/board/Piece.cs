@@ -48,7 +48,7 @@ namespace board
         {
             qteMovimentos--;
         }
-        public bool canMoveTo(Position pos)
+        public bool movePosibles(Position pos)
         {
             return movePosible()[pos.line, pos.column];
         }

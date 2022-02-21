@@ -208,7 +208,7 @@ namespace Chess_Game.Chess
 
         public void validPositionDestiny(Position origin,Position destiny)
         {
-            if (!board.getPiece(origin).canMoveTo(destiny))
+            if (!board.getPiece(origin).movePosibles(destiny))
             {
                 throw new BoardException("Posição de destino invalida");
             }
