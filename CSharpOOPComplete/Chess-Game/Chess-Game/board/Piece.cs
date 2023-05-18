@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace board
 {
-    class Piece
+    abstract class Piece
     {
         public Position position { get; set; }
         public ColorPiece color { get; protected set; }
@@ -21,9 +21,37 @@ namespace board
             this.qteMovimentos = 0;
         }
 
+        public bool existsMovePosible()
+        {
+            
+            bool[,] mat = movePosible();
+            for (int i = 0; i< board.lines; i++)
+            {
+                for (int j = 0; j < board.columns; j++)
+                {
+                    if (mat[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public abstract bool[,] movePosible();        
+
         public void movimentValueIncrement()
         {
             qteMovimentos++;
+        }
+
+        public void movimentValueDecrement()
+        {
+            qteMovimentos--;
+        }
+        public bool movePosibles(Position pos)
+        {
+            return movePosible()[pos.line, pos.column];
         }
 
     }

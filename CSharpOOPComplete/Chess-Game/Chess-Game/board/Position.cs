@@ -19,6 +19,12 @@ namespace board
             this.column = column;
         }
 
+        public void changeValues(int line, int column)
+        {
+            this.line = line;
+            this.column = column;
+        }
+
         //Override ToString
         public override string ToString()
         {

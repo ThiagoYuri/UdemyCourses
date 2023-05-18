@@ -13,5 +13,6 @@ namespace board
         Black,
         Green,
         Red,
+        Yellow,
     }
 }

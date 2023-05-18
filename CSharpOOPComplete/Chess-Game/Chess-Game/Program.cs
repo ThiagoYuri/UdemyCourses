@@ -17,16 +17,30 @@ namespace Chess_Game
 
                 while (!chessMatch.finalized)
                 {
-                    Console.Clear();
-                    Screen.PrintOutBoard(chessMatch.board);
-                    Console.Write("Origin: ");
-                    Position origin = Screen.readPositionChess().toPosition();
-                    Console.Write("Destiny");
-                    Position destiny = Screen.readPositionChess().toPosition();
-
-                    chessMatch.executeMoviment(origin, destiny);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.printGame(chessMatch);
+                        Console.WriteLine("Origin: ");
+                        Position origin = Screen.readPositionChess().toPosition();
+                        chessMatch.validPositionOrigin(origin);
+                        bool[,] positionPosible = chessMatch.board.getPiece(origin).movePosible();
+                        Console.Clear();
+                        Screen.printOutBoard(chessMatch.board, positionPosible);
+                        Console.WriteLine("Destiny:");
+                        Position destiny = Screen.readPositionChess().toPosition();
+                        chessMatch.validPositionDestiny(origin,destiny);
+                        chessMatch.makeMove(origin, destiny);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Aperte alguma tecla para continuar");
+                        Console.ReadKey();
+                    }
                 }
-
+                Console.Clear();
+                Screen.printGame(chessMatch);
 
             }
             catch (BoardException m)
